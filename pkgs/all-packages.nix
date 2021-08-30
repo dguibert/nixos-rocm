@@ -46,7 +46,7 @@ with pkgs;
 
   rocclr = callPackage ./development/libraries/rocclr {
     inherit (self) rocm-comgr rocm-opencl-runtime rocm-runtime rocm-thunk;
-    inherit (self.llvmPackages_rocm) clang; 
+    inherit (self.llvmPackages_rocm) clang;
   };
 
   rocm-opencl-runtime = callPackage ./development/libraries/rocm-opencl-runtime {
@@ -71,6 +71,10 @@ with pkgs;
 
   # `hip` is an alias for `hip-clang`
   hip = self.hip-clang;
+
+  hipify-clang = callPackage ./development/compilers/hipify-clang {
+    inherit (self.llvmPackages_rocm) llvm clang clang-unwrapped;
+  };
 
   clang-ocl = callPackage ./development/compilers/clang-ocl {
     inherit (self) rocm-cmake rocm-device-libs rocm-opencl-runtime;
@@ -134,7 +138,7 @@ with pkgs;
   # Broken
   miopen-cl = self.miopen-hip.override {
     use_ocl = true;
-    inherit rocm-opencl-runtime; 
+    inherit rocm-opencl-runtime;
   };
 
   rocfft = callPackage ./development/libraries/rocfft {
@@ -243,7 +247,7 @@ with pkgs;
   # };
 
   tensorflow2-rocm = python3Packages.callPackage ./development/libraries/tensorflow/2 {
-    inherit (self) rocm-runtime rccl rocprim hipcub rocsparse hipsparse rocblas 
+    inherit (self) rocm-runtime rccl rocprim hipcub rocsparse hipsparse rocblas
                    miopengemm miopen-hip rocrand rocfft;
     hip = self.hip-clang;
   };
