@@ -20,6 +20,10 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = ''
-  sed -i -e "s@set(CMAKE_C.*@#set(CMAKE_C@" CMakeLists.txt
+    sed -i -e "s@set(CMAKE_C.*@#set(CMAKE_C@" CMakeLists.txt
+  '';
+  postInstall = ''
+    mkdir $out/bin
+    mv $out/hipify-clang $out/bin
   '';
 }
