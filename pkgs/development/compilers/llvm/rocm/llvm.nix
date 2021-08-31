@@ -42,7 +42,7 @@ in stdenv.mkDerivation rec {
     "-DLLVM_ENABLE_FFI=ON"
     "-DLLVM_ENABLE_RTTI=ON"
     "-DLLVM_ENABLE_DUMP=ON"
-    "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}"
+    "-DLLVM_TARGETS_TO_BUILD=AMDGPU;NVPTX;${llvmNativeTarget}"
   ]
   ++
   lib.optional

@@ -74,6 +74,7 @@ with pkgs;
 
   hipify-clang = callPackage ./development/compilers/hipify-clang {
     inherit (self.llvmPackages_rocm) llvm clang clang-unwrapped;
+    clangStdenv = pkgs.overrideCC stdenv self.llvmPackages_rocm.clang;
   };
 
   clang-ocl = callPackage ./development/compilers/clang-ocl {

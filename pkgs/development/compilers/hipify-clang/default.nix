@@ -1,4 +1,5 @@
 { stdenv, lib, fetchFromGitHub
+, clangStdenv
 , llvm, clang, clang-unwrapped
 , cmake
 }:
@@ -25,5 +26,9 @@ stdenv.mkDerivation rec {
   postInstall = ''
     mkdir $out/bin
     mv $out/hipify-clang $out/bin
+    # copy the c++ wrapper and patch the last exec line to use iwyu
+    mv $out/bin/hipify-clang $out/bin/.hipify-clang
+    cp ${clangStdenv.cc}/bin/c++ $out/bin/hipify-clang
+    sed -i "s;^exec[^\\]*;exec $out/bin/.hipify-clang ;" $out/bin/hipify-clang
   '';
 }
