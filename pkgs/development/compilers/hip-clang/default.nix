@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
         -e 's,\([[:space:]]*$HOST_OSVER=\).*,\1"${lib.versions.majorMinor lib.version}";,' \
         -e 's,^\([[:space:]]*\)$HIP_CLANG_INCLUDE_PATH = abs_path("$HIP_CLANG_PATH/../lib/clang/$HIP_CLANG_VERSION/include");,\1$HIP_CLANG_INCLUDE_PATH = "${clang-unwrapped}/lib/clang/$HIP_CLANG_VERSION/include";,' \
         -e 's,^\([[:space:]]*$HIPCXXFLAGS .= " -isystem $HIP_CLANG_INCLUDE_PATH\)";,\1 -isystem ${rocm-runtime}/include";,' \
-        -e 's,\($HIPCXXFLAGS .= " -isystem \\"$HIP_INCLUDE_PATH\\"\)" ;,\1 --rocm-path=${rocclr}";,' \
+        -e 's,\($HIPCXXFLAGS .= " -isystem \\"$HIP_CLANG_INCLUDE_PATH/..\\"";\)" ;,\1 --rocm-path=${rocclr}";,' \
         -e "s,\$HIP_PATH/\(bin\|lib\),$out/\1,g" \
         -e "s,^\$HIP_LIB_PATH=\$ENV{'HIP_LIB_PATH'};,\$HIP_LIB_PATH=\"$out/lib\";," \
         -e 's,`file,`${file}/bin/file,g' \
