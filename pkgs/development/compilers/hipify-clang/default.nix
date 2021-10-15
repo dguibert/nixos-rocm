@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "hipify-clang";
-  version = "4.3.0";
+  version = "4.3.1";
   src = fetchFromGitHub {
     owner = "ROCm-Developer-Tools";
     repo = "HIPIFY";
